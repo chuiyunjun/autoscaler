@@ -79,6 +79,7 @@ type Autoscaling struct {
 	Enable       bool `json:"enable"`
 	MinNodeCount int  `json:"minNodeCount"`
 	MaxNodeCount int  `json:"maxNodeCount"`
+	Priority     int  `json:"priority"`
 }
 
 // Spec "spec" section in the request body of updating a node pool

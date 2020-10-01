@@ -195,8 +195,8 @@ func getAutoscaleNodePools(manager *huaweicloudCloudManager, opts config.Autosca
 			continue
 		}
 
-		klog.V(4).Infof("adding node pool: %q, name: %s, min: %d, max: %d",
-			nodePool.Metadata.Uid, nodePool.Metadata.Name, nodePool.Spec.Autoscaling.MinNodeCount, nodePool.Spec.Autoscaling.MaxNodeCount)
+		klog.V(4).Infof("adding node pool: %q, name: %s, min: %d, max: %d, priority: %d",
+			nodePool.Metadata.Uid, nodePool.Metadata.Name, nodePool.Spec.Autoscaling.MinNodeCount, nodePool.Spec.Autoscaling.MaxNodeCount, nodePool.Spec.Autoscaling.Priority)
 
 		nodePoolsWithAutoscalingEnabled = append(nodePoolsWithAutoscalingEnabled, NodeGroup{
 			huaweiCloudManager: manager,
@@ -208,6 +208,7 @@ func getAutoscaleNodePools(manager *huaweicloudCloudManager, opts config.Autosca
 			autoscalingEnabled: nodePool.Spec.Autoscaling.Enable,
 			minNodeCount:       nodePool.Spec.Autoscaling.MinNodeCount,
 			maxNodeCount:       nodePool.Spec.Autoscaling.MaxNodeCount,
+			priority:           nodePool.Spec.Autoscaling.Priority,
 			targetSize:         &nodePool.NodePoolStatus.CurrentNode,
 		})
 	}

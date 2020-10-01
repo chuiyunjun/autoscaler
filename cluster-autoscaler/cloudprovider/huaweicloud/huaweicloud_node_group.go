@@ -38,6 +38,7 @@ type NodeGroup struct {
 	minNodeCount       int
 	maxNodeCount       int
 	targetSize         *int
+	priority           int
 	autoscalingEnabled bool
 
 	nodesToDelete       []*apiv1.Node
@@ -66,6 +67,10 @@ func (ng *NodeGroup) MinSize() int {
 // removed nodes are deleted completely).
 func (ng *NodeGroup) TargetSize() (int, error) {
 	return *ng.targetSize, nil
+}
+
+func (ng *NodeGroup) Priority() int {
+	return ng.priority
 }
 
 // waitForClusterStatus keeps waiting until the cluster has reached a specified status or timeout occurs.
