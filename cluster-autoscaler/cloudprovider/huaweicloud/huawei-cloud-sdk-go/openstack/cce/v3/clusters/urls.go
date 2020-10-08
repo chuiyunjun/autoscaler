@@ -51,6 +51,10 @@ func deleteNodeURL(sc *huaweicloudsdk.ServiceClient, clusterID string, nodeId st
 	return sc.ServiceURL(clusterDenoter, clusterID, nodeDenoter, nodeId)
 }
 
+func getNodeURL(sc *huaweicloudsdk.ServiceClient, clusterID string, nodeId string) string {
+	return sc.ServiceURL(clusterDenoter, clusterID, nodeDenoter, nodeId)
+}
+
 // updateNodePoolURL returns a URL for updating the number of nodes in a node pool with id nodepoolID which attached to
 // a cce cluster with id clusterID.
 // REST API:

@@ -70,7 +70,24 @@ func (hcp *huaweicloudCloudProvider) NodeGroupForNode(node *apiv1.Node) (cloudpr
 	if _, found := node.ObjectMeta.Labels["node-role.kubernetes.io/master"]; found {
 		return nil, nil
 	}
-	return &(hcp.nodeGroups[0]), nil
+	klog.V(0).Infof("%+v\n", node)
+	klog.V(0).Infof(node.Spec.ProviderID)
+	for i, nodeGroup := range hcp.nodeGroups {
+		nodes, error := nodeGroup.Nodes()
+
+		if error != nil {
+			klog.Errorf("failed to read nodes inside a node pool: %v", error)
+		}
+
+		for _, iterNode := range nodes {
+			if iterNode.Id == node.Spec.ProviderID {
+				return &(hcp.nodeGroups[i]), nil
+			}
+		}
+	}
+	
+	return nil, nil
+	//return &(hcp.nodeGroups[0]), nil
 }
 
 // Pricing returns pricing model for this cloud provider or error if not available. Not implemented.

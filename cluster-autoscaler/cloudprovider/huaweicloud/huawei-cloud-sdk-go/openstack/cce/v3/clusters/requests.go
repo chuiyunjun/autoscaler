@@ -43,6 +43,12 @@ func DeleteNode(client *huaweicloudsdk.ServiceClient, clusterId string, nodeId s
 	return
 }
 
+func GetNode(client *huaweicloudsdk.ServiceClient, clusterId string, nodeId string) (r GetNodeResult) {
+	getNodeURL := getNodeURL(client, clusterId, nodeId)
+	_, r.Err = client.Get(getNodeURL,&r.Body, nil)
+	return
+}
+
 // UpdateOptsBuilder is used to build request body for updating the size of a node pool.
 // It allows extensions to add additional parameters to the Update request.
 type UpdateOptsBuilder interface {

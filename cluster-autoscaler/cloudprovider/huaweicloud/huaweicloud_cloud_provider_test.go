@@ -74,6 +74,16 @@ func TestHuaweicloudCloudProvider_NodeGroupForNode(t *testing.T) {
 		_, err := hcp.NodeGroupForNode(node)
 		assert.NoError(t, err)
 	}
+
+	hcp.nodeGroups = make([]cloudprovider.NodeGroup, 3)
+
+	node := &apiv1.Node{
+		Spec: apiv1.NodeSpec{
+			ProviderID: toProviderID("1234-1234"),
+		},
+	}
+
+
 }
 
 func TestHuaweicloudCloudProvider_GetResourceLimiter(t *testing.T) {

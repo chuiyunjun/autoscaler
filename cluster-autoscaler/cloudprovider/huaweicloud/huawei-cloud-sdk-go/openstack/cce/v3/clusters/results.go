@@ -72,6 +72,11 @@ type Status struct {
 type Metadata struct {
 	Name string `json:"name"`
 	Uid  string `json:"uid"`
+	Annotations string `json:"annotations"`
+}
+
+type Annotations struct {
+	NodepoolId string `json:"kubernetes.io/node-pool.id"`
 }
 
 // Autoscaling "autoscaling" section in the request body of updating a node pool
@@ -134,6 +139,17 @@ func (r UpdateResult) Extract() (string, error) {
 	}
 	err := r.ExtractInto(&s)
 	return s.UUID, err
+}
+
+
+type GetNodeResult struct {
+	huaweicloudsdk.Result
+}
+
+func (r GetNodeResult) Extract() (CCENode, error) {
+	var res CCENode
+	err := r.ExtractInto(&res)
+	return res, err
 }
 
 // Extract node pools and error
